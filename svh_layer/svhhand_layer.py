@@ -962,4 +962,13 @@ if __name__ == "__main__":
     mesh = svh.get_forward_hand_mesh(pose, theta, save_mesh=False)
     mesh[0].show()
 
+    svh = SvhHandLayer(to_mano_frame=True, show_mesh=False).to(device)
+    verts, normals = svh.get_forward_vertices(pose, theta)
+    pc = trimesh.PointCloud(verts.cpu().squeeze().numpy(), colors=(255, 0, 255))
+    pc.show()
 
+    anchor_layer = SvhAnchor().to(device)
+    anchors = anchor_layer(verts)
+    anchor_pc = trimesh.PointCloud(anchors.cpu().squeeze().numpy()[:4], colors=(0, 0, 255))
+    scene = trimesh.Scene([pc, anchor_pc])
+    scene.show()
