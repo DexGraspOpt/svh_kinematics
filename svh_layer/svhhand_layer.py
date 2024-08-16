@@ -969,6 +969,6 @@ if __name__ == "__main__":
 
     anchor_layer = SvhAnchor().to(device)
     anchors = anchor_layer(verts)
-    anchor_pc = trimesh.PointCloud(anchors.cpu().squeeze().numpy()[:4], colors=(0, 0, 255))
+    anchor_pc = trimesh.PointCloud(anchors.cpu().squeeze().numpy(), colors=(0, 0, 255))
     scene = trimesh.Scene([pc, anchor_pc])
     scene.show()
